@@ -20,7 +20,11 @@ module.exports = {
 		'computed-property-spacing': [2, 'never'],
 		'eol-last': 2,
 		'indent': [2, 'tab', { 'SwitchCase': 1 }],
-		'key-spacing': [2, {'beforeColon': false, 'afterColon': true}],
+		'key-spacing': [2, {
+			beforeColon: false,
+			afterColon: true,
+			mode: 'minimum'
+		}],
 		'keyword-spacing': 2,
 		'linebreak-style': [2, 'unix'],
 		'max-len': [2, {'code': 120, 'comments': 180, 'ignoreUrls': true}],
