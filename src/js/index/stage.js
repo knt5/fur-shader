@@ -1,31 +1,13 @@
 import { $window, $stage } from './dom';
-/*
-import createSkyBox from './createSkyBox';
-import createMesh from './createMesh';
-import createGround from './createGround';
-*/
+import fur from './fur';
 
-import datGui from './datGui';
-
-// Parameter
-//const id = getId();
-
-// 3D Basis
 let camera, scene, renderer;
-//let trackball;
 let light, ambientLight;
-
-// 3D Objects
-//let skyBox;
-//let mesh;
-//let ground;
-
-// Light
-let sunDistance = 200;
+let trackball;
 
 // Camera
-let cameraRadius = 600;
-let cameraHeight = 300;
+let cameraRadius = 150;
+let cameraHeight = 40;
 let cameraDirection = Math.PI / 2;
 
 init();
@@ -36,24 +18,16 @@ function init() {
 	createStage();  // Create renderer, scene, camera and controls
 	addLights();
 	
-	scene.add(new THREE.GridHelper(300, 10));
+	//scene.add(new THREE.GridHelper(300, 10));
 	
-	/*
-	createMesh(id, (createedMesh, topMesh) => {
-		// Save
-		mesh = createedMesh;
-		
-		// Add to scene
-		scene.add(mesh);
-		scene.add(topMesh);
-		
-		// Create and add ground to scene
-		ground = createGround(mesh);
-		scene.add(ground);
+	fur.init({
+		scene,
+		renderer,
+		camera
 	});
-	*/
 	
 	registerEvents();
+	fur.registerEvents();
 }
 
 //=========================================================
@@ -62,7 +36,7 @@ function createStage() {
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(getWidth(), getHeight());
 	renderer.setPixelRatio(renderer.getPixelRatio());
-	renderer.setClearColor(0xffffff);
+	renderer.setClearColor(0x333333);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	$stage.append(renderer.domElement);
@@ -82,26 +56,17 @@ function createStage() {
 	scene.add(camera);
 	
 	// controls
-	/*
 	trackball = new THREE.TrackballControls(camera, $stage.get(0));
 	trackball.staticMoving = false;
 	trackball.maxDistance = 1000;
-	trackball.minDistance = 200;
-	*/
+	trackball.minDistance = 100;
 }
 
 //=========================================================
 function addLights() {
 	// directional
 	light = new THREE.DirectionalLight(0xffffff, 0.5);
-	light.position.set(-1000, 100, 0);
-	light.castShadow = true;
-	//light.shadow.mapSize.width = 2048;
-	//light.shadow.mapSize.height = 2048;
-	light.shadow.camera.top = 300;
-	light.shadow.camera.bottom = -300;
-	light.shadow.camera.left = -300;
-	light.shadow.camera.right = 300;
+	light.position.set(0, 100, 300);
 	scene.add(light);
 	
 	// helper
@@ -129,6 +94,8 @@ function render() {
 
 //=========================================================
 function animate() {
+	fur.calc();
+	trackball.update();
 	render();
 	requestAnimationFrame(animate);
 }
