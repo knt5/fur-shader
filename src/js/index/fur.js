@@ -104,8 +104,14 @@ function calc() {
 function registerEvents() {
 	$stage.on('mousemove', (event) => {
 		event.originalEvent.preventDefault();
-		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+		mouse.x = (event.clientX / $stage.width()) * 2 - 1;
+		mouse.y = - (event.clientY / $stage.height()) * 2 + 1;
+	});
+	
+	$stage.on('touchmove', (event) => {
+		event.originalEvent.preventDefault();
+		mouse.x = (event.originalEvent.touches[0].clientX / $stage.width()) * 2 - 1;
+		mouse.y = - (event.originalEvent.touches[0].clientY / $stage.height()) * 2 + 1;
 	});
 }
 
