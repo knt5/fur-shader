@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 
 // libs
-const glob = require('glob');
 const mustache = require('mustache');
 const express = require('express');
 

@@ -1,9 +1,8 @@
 {
-  "name": "shape-3d",
+  "name": "fur-shader",
   "author": "knt5",
   "dependencies": {
     "express": "^4.14.0",
-    "glob": "^7.0.5",
     "mustache": "^2.2.1"
   },
   "devDependencies": {
