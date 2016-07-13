@@ -1,2 +1,3 @@
-# fur-shader
-Fur shader
+# Fur shader
+
+Fur shader implementation practice
