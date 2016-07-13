@@ -1,7 +1,7 @@
 const datGui = new dat.GUI();
 
 const config = {
-	gravity: 1,
+	wind: 1,
 };
 
 init();
@@ -13,5 +13,5 @@ export default {
 
 //=========================================================
 function init() {
-	datGui.add(config, 'gravity', 0, 10);
+	datGui.add(config, 'wind', 0, 5);
 }
