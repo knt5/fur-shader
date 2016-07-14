@@ -95,7 +95,10 @@ function render() {
 //=========================================================
 function animate() {
 	fur.calc();
+	fur.updateTexture();
+	
 	trackball.update();
+	
 	render();
 	requestAnimationFrame(animate);
 }

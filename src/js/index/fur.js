@@ -5,17 +5,26 @@ import datGui from './datGui';
 export default {
 	init,
 	registerEvents,
-	calc
+	calc,
+	updateTexture,
+	changeFurTexture,
+	changeFurTextureFromImage,
 };
 
 //=========================================================
-const furTexturePath = '/img/fur.png';
+let prevTextureName = datGui.config.texture;
 //const textureRepeat = 5;
 const textureSize = 256;
 const numberOfShells = 60;
 //const geometrySize = 60;
 
-//=========================================================
+// furTextureCanvas
+const furTextureCanvas = document.createElement('canvas');
+furTextureCanvas.width = textureSize;
+furTextureCanvas.height = textureSize;
+const furTextureContext = furTextureCanvas.getContext( '2d' );
+
+// 3D
 let camera, scene, renderer;
 let geometry;
 
@@ -27,7 +36,7 @@ let shaderTime = 0;
 let meshes = [];
 let furTexture;
 let furMaskTexture;
-let gravity = new THREE.Vector3(0, -0.75, 0);
+let gravity = new THREE.Vector3(0, - datGui.config.gravity, 0);
 var mouse = new THREE.Vector2(-0.5, 0.5);
 let mouseModel = {
 	x: 0,
@@ -38,22 +47,42 @@ let mouseModel = {
 
 //=========================================================
 function init(three) {
-	// Save parameters
-	scene = three.scene;
-	renderer = three.renderer;
-	camera = three.camera;
-	
-	// Load fur texture
-	furTexture = loadTexture(furTexturePath);
-	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
-	//furTexture.repeat.set(textureRepeat, textureRepeat);
-	
-	// Generate fur mask texture
-	furMaskTexture = new THREE.Texture(generateFurMaskTextureCanvas());
-	furMaskTexture.needsUpdate = true;
-	furMaskTexture.wrapS = furMaskTexture.wrapT = THREE.RepeatWrapping;
-	//furMaskTexture.repeat.set(textureRepeat, textureRepeat);
-	furMaskTexture.anisotropy = renderer.getMaxAnisotropy();
+	if (three) {
+		// Save parameters
+		scene = three.scene;
+		renderer = three.renderer;
+		camera = three.camera;
+		
+		// Load fur texture
+		changeFurTexture(getTexturePath());
+		
+		// Generate fur mask texture
+		furMaskTexture = new THREE.Texture(generateFurMaskTextureCanvas());
+		furMaskTexture.needsUpdate = true;
+		furMaskTexture.wrapS = furMaskTexture.wrapT = THREE.RepeatWrapping;
+		//furMaskTexture.repeat.set(textureRepeat, textureRepeat);
+		furMaskTexture.anisotropy = renderer.getMaxAnisotropy();
+		
+	} else {
+		if (meshes.length > 0) {
+			let i;
+			
+			for (i=0; i<meshes.length; i++) {
+				scene.remove(meshes[i]);
+			}
+			
+			for (i=0; i<meshes.length; i++) {
+				if (meshes[i].geometry) {
+					meshes[i].geometry.dispose();
+				}
+				if (meshes[i].material) {
+					meshes[i].material.dispose();
+				}
+			}
+			
+			meshes = [];
+		}
+	}
 	
 	// Generate model
 	geometry = new THREE.SphereBufferGeometry(
@@ -62,6 +91,43 @@ function init(three) {
 		24    // heightSegments
 	);
 	generateShells(geometry, furTexture, furMaskTexture);
+}
+
+//=========================================================
+function changeFurTexture(path) {
+	// Load fur texture
+	furTexture = loadTexture(path);
+	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
+	//furTexture.repeat.set(textureRepeat, textureRepeat);
+}
+
+//=========================================================
+function changeFurTextureFromImage(image) {
+	if (image.width === textureSize && image.height === textureSize) {
+		// Resize image
+		furTextureContext.drawImage(image,
+			0, 0, image.width, image.height,
+			0, 0, textureSize, textureSize
+		);
+		
+		const resizedImage = new Image();
+		resizedImage.src = furTextureCanvas.toDataURL();
+		
+		furTexture = new THREE.Texture(resizedImage);
+	} else {
+		furTexture = new THREE.Texture(image);
+	}
+	
+	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
+}
+
+//=========================================================
+function updateTexture() {
+	if (prevTextureName !== datGui.config.texture) {
+		prevTextureName = datGui.config.texture;
+		changeFurTexture(getTexturePath());
+		init();
+	}
 }
 
 //=========================================================
@@ -90,7 +156,7 @@ function calc() {
 	gravity.x = -(mouse.x - mouseModel.x) * datGui.config.wind;
 	
 	let diff = Math.sin(mouse.x) * 150 - camera.position.x;
-	gravity.y = -0.75 + (Math.abs(diff) / 150) - (mouse.y - mouseModel.y) * datGui.config.wind;
+	gravity.y = - datGui.config.gravity + (Math.abs(diff) / 150) - (mouse.y - mouseModel.y) * datGui.config.wind;
 	
 	shaderTime += delta * 0.005;
 	
@@ -176,4 +242,9 @@ function generateFurMaskTextureCanvas() {
 	}
 	
 	return canvas;
+}
+
+//=========================================================
+function getTexturePath() {
+	return `/img/fur/${datGui.config.texture}.png`;
 }
