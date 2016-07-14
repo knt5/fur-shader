@@ -1,4 +1,4 @@
-import { $window, $stage } from './dom';
+import { $window, $stage, $textureInput } from './dom';
 import fur from './fur';
 
 let camera, scene, renderer;
@@ -84,6 +84,19 @@ function registerEvents() {
 		camera.updateProjectionMatrix();
 		renderer.setSize(getWidth(), getHeight());
 	});
+	
+	$textureInput.on('change', () => {
+		const files = event.target.files;
+		if (files.length > 0) {
+			const reader = new FileReader();
+			reader.readAsDataURL(files[0]);
+			reader.onload = () => {
+				const image = new Image();
+				image.src = reader.result;
+				fur.changeFurTextureFromImage(image);
+			};
+		}
+	});
 }
 
 //=========================================================
@@ -96,6 +109,7 @@ function render() {
 function animate() {
 	fur.calc();
 	fur.updateTexture();
+	fur.updateGeometry();
 	
 	trackball.update();
 	

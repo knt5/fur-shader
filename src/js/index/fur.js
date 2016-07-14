@@ -7,16 +7,18 @@ export default {
 	registerEvents,
 	calc,
 	updateTexture,
+	updateGeometry,
 	changeFurTexture,
 	changeFurTextureFromImage,
 };
 
 //=========================================================
 let prevTextureName = datGui.config.texture;
+let prevGeometryName = datGui.config.geometry;
 //const textureRepeat = 5;
 const textureSize = 256;
 const numberOfShells = 60;
-//const geometrySize = 60;
+const geometrySize = 40;
 
 // furTextureCanvas
 const furTextureCanvas = document.createElement('canvas');
@@ -27,6 +29,10 @@ const furTextureContext = furTextureCanvas.getContext( '2d' );
 // 3D
 let camera, scene, renderer;
 let geometry;
+
+// Font data
+let font;
+loadFont('optimer_bold');
 
 //=========================================================
 let delta;
@@ -85,11 +91,73 @@ function init(three) {
 	}
 	
 	// Generate model
-	geometry = new THREE.SphereBufferGeometry(
-		20,  // radius
-		24,   // widthSegments
-		24    // heightSegments
-	);
+	generateModel();
+}
+
+//=========================================================
+function generateModel() {
+	switch (datGui.config.geometry) {
+		case 'Sphere':
+			geometry = new THREE.SphereBufferGeometry(geometrySize / 2, 24, 24);
+			break;
+		/*
+		case 'Text':
+			// TODO: fix
+			if (font) {
+				geometry = new THREE.TextGeometry('FUR', {
+					font: font,
+					size: geometrySize / 4,
+					height: geometrySize / 8
+				});
+			}
+			break;
+		*/
+		case 'Torus':
+			geometry = new THREE.TorusBufferGeometry(geometrySize / 2, 3, 16, 36);
+			break;
+		case 'TorusKnot':
+			geometry = new THREE.TorusKnotBufferGeometry(geometrySize / 2, 3, 100, 12);
+			break;
+		case 'Tetrahedron':
+			geometry = new THREE.TetrahedronGeometry(geometrySize / 2);
+			break;
+		case 'Octahedron':
+			geometry = new THREE.OctahedronGeometry(geometrySize / 2);
+			break;
+		case 'Icosahedron':
+			geometry = new THREE.IcosahedronGeometry(geometrySize / 2);
+			break;
+		case 'Dodecahedron':
+			geometry = new THREE.DodecahedronGeometry(geometrySize / 2);
+			break;
+		/*
+		case 'Cylinder':
+			// TODO: fix
+			geometry = new THREE.CylinderBufferGeometry(geometrySize / 4, geometrySize / 4, geometrySize / 2, 16);
+			break;
+		*/
+		case 'Box':
+			geometry = new THREE.BoxBufferGeometry(geometrySize, geometrySize, geometrySize);
+			break;
+		case 'Cone':
+			geometry = new THREE.ConeBufferGeometry(geometrySize / 2, geometrySize, 16);
+			break;
+		/*
+		case 'Lathe':
+			geometry = new THREE.LatheBufferGeometry(geometrySize / 2, geometrySize, 16);
+			break;
+		*/
+		case 'Ring':
+			geometry = new THREE.RingBufferGeometry(geometrySize / 4, geometrySize / 2);
+			break;
+		case 'Circle':
+			geometry = new THREE.CircleBufferGeometry(geometrySize / 2, 32);
+			break;
+		case 'Plane':
+			geometry = new THREE.PlaneBufferGeometry(geometrySize, geometrySize);
+			break;
+	}
+	
 	generateShells(geometry, furTexture, furMaskTexture);
 }
 
@@ -98,27 +166,20 @@ function changeFurTexture(path) {
 	// Load fur texture
 	furTexture = loadTexture(path);
 	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
-	//furTexture.repeat.set(textureRepeat, textureRepeat);
 }
 
 //=========================================================
 function changeFurTextureFromImage(image) {
-	if (image.width === textureSize && image.height === textureSize) {
-		// Resize image
-		furTextureContext.drawImage(image,
-			0, 0, image.width, image.height,
-			0, 0, textureSize, textureSize
-		);
-		
-		const resizedImage = new Image();
-		resizedImage.src = furTextureCanvas.toDataURL();
-		
-		furTexture = new THREE.Texture(resizedImage);
-	} else {
-		furTexture = new THREE.Texture(image);
-	}
+	furTextureContext.drawImage(image,
+		0, 0, image.width, image.height,
+		0, 0, textureSize, textureSize
+	);
+	
+	furTexture = new THREE.Texture(furTextureCanvas);
+	furTexture.needsUpdate = true;
 	
 	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
+	init();
 }
 
 //=========================================================
@@ -126,6 +187,14 @@ function updateTexture() {
 	if (prevTextureName !== datGui.config.texture) {
 		prevTextureName = datGui.config.texture;
 		changeFurTexture(getTexturePath());
+		init();
+	}
+}
+
+//=========================================================
+function updateGeometry() {
+	if (prevGeometryName !== datGui.config.geometry) {
+		prevGeometryName = datGui.config.geometry;
 		init();
 	}
 }
@@ -247,4 +316,11 @@ function generateFurMaskTextureCanvas() {
 //=========================================================
 function getTexturePath() {
 	return `/img/fur/${datGui.config.texture}.png`;
+}
+
+//=========================================================
+function loadFont(fontName) {
+	$.getJSON(`/font/${fontName}.typeface.json`, (data) => {
+		font = new THREE.Font(data);
+	});
 }

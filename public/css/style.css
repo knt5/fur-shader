@@ -33,3 +33,39 @@ h1 {
 	display: block;
 	clear: both;
 }
+
+/* =================== style =================== */
+body {
+	position: relative;
+	color: #fff;
+}
+
+.header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 12px 0 0 12px;
+}
+
+.title {
+	font-size: 60px;
+}
+
+.facebook {
+	
+}
+
+.texture {
+	margin-top: 2px;
+	padding-left: 16px;
+}
+
+.textureInput {
+	
+}
+
+.datGui {
+	position: absolute;
+	left: 0;
+	bottom: 27px;
+}
