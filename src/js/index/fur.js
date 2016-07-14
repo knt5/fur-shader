@@ -100,18 +100,6 @@ function generateModel() {
 		case 'Sphere':
 			geometry = new THREE.SphereBufferGeometry(geometrySize / 2, 24, 24);
 			break;
-		/*
-		case 'Text':
-			// TODO: fix
-			if (font) {
-				geometry = new THREE.TextGeometry('FUR', {
-					font: font,
-					size: geometrySize / 4,
-					height: geometrySize / 8
-				});
-			}
-			break;
-		*/
 		case 'Torus':
 			geometry = new THREE.TorusBufferGeometry(geometrySize / 2, 3, 16, 36);
 			break;
@@ -130,17 +118,23 @@ function generateModel() {
 		case 'Dodecahedron':
 			geometry = new THREE.DodecahedronGeometry(geometrySize / 2);
 			break;
-		/*
-		case 'Cylinder':
-			// TODO: fix
-			geometry = new THREE.CylinderBufferGeometry(geometrySize / 4, geometrySize / 4, geometrySize / 2, 16);
+		case 'Cone':
+			geometry = new THREE.ConeBufferGeometry(geometrySize / 2, geometrySize, 16);
 			break;
-		*/
 		case 'Box':
 			geometry = new THREE.BoxBufferGeometry(geometrySize, geometrySize, geometrySize);
 			break;
-		case 'Cone':
-			geometry = new THREE.ConeBufferGeometry(geometrySize / 2, geometrySize, 16);
+		case 'Cylinder':
+			geometry = new THREE.CylinderBufferGeometry(geometrySize / 4, geometrySize / 4, geometrySize / 2, 16);
+			break;
+		case 'Text':
+			if (font) {
+				geometry = new THREE.TextGeometry('FUR', {
+					font: font,
+					size: geometrySize / 4,
+					height: geometrySize / 8
+				});
+			}
 			break;
 		/*
 		case 'Lathe':
