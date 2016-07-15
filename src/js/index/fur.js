@@ -105,7 +105,7 @@ function generateModel() {
 			geometry = new THREE.TorusBufferGeometry(geometrySize / 2, 3, 16, 36);
 			break;
 		case 'TorusKnot':
-			geometry = new THREE.TorusKnotBufferGeometry(geometrySize / 2, 3, 100, 12);
+			geometry = new THREE.TorusKnotBufferGeometry(geometrySize / 3, 1);
 			break;
 		case 'Tetrahedron':
 			geometry = new THREE.TetrahedronGeometry(geometrySize / 2);
