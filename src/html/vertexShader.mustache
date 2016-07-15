@@ -1,37 +1,41 @@
+uniform float time;
 uniform float offset;
-uniform float globalTime;
+uniform float spacing;
+uniform float furStrength;
 uniform vec3 gravity;
 
 varying vec2 vUv;
 varying vec3 vNormal;
 
-const float spacing = 12.0;
-
 void main() {
-	vec3 displacement = vec3(0.0, 0.0, 0.0);
-	vec3 forceDirection = vec3(0.0, 0.0, 0.0);
-
-	// "wind"
-	forceDirection.x = sin(globalTime + position.x * 0.05) * 0.2;
-	forceDirection.y = cos(globalTime * 0.7 + position.y * 0.04) * 0.2;
-	forceDirection.z = sin(globalTime * 0.7 + position.y * 0.04) * 0.2;
-
-	// "gravity"
-	displacement = gravity + forceDirection;
-
-	float displacementFactor = pow(offset, 3.0);
-
-	vec3 aNormal = normal;
-	aNormal.xyz += displacement * displacementFactor;
-
-	// move outwards depending on offset(layer) and normal+force+gravity
-	vec3 animated = vec3(position.x, position.y, position.z) + (normalize(aNormal) * offset * spacing);
-
-	vNormal = normalize(normal * aNormal);
-
+	vec3 force = vec3(0.0, 0.0, 0.0);
+	vec3 wind = vec3(0.0, 0.0, 0.0);
+	
+	// Calculate wind direction
+	wind.x = sin(time + position.x * 0.06) * 0.24;
+	wind.y = cos(time * 0.5 + position.y * 0.08) * 0.24;
+	wind.z = sin(time * 0.5 + position.y * 0.08) * 0.24;
+	
+	// Calculate force
+	force = gravity + wind;
+	
+	// Calculate degree of effectiveness of force by offset(0-1)
+	float effectiveness = pow(offset, furStrength);
+	
+	// Calculate fur point normal
+	vec3 furPointNormal = normal;
+	furPointNormal.xyz += force * effectiveness;
+	
+	// Move to outside by offset of fur shell
+	vec3 moved = vec3(position.x, position.y, position.z) + (normalize(furPointNormal) * offset * spacing);
+	
+	// Calculate normal and UV for fragment shader
+	vNormal = normalize(normal * furPointNormal);
 	vUv = uv * 20.0;
-
-	vec4 mvPosition = modelViewMatrix * vec4(animated, 1.0);
-
-	gl_Position = projectionMatrix * mvPosition;
+	
+	// Convert moved local position to world position
+	vec4 worldPosition = modelViewMatrix * vec4(moved, 1.0);
+	
+	// Convert from world position to screen position
+	gl_Position = projectionMatrix * worldPosition;
 }

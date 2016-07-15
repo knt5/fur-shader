@@ -7,8 +7,10 @@ const datGui = new dat.GUI({
 const config = {
 	wind: 1,
 	gravity: 0.9,
+	furStrength: 3,
+	furLength: 12,
 	texture: 'giraffe',
-	geometry: 'Sphere'
+	geometry: 'Sphere',
 };
 
 const textures = [
@@ -57,6 +59,8 @@ export default {
 function init() {
 	datGui.add(config, 'wind', 0, 5);
 	datGui.add(config, 'gravity', 0, 3);
+	datGui.add(config, 'furStrength', 0, 20);
+	datGui.add(config, 'furLength', 4, 32);
 	datGui.add(config, 'texture', textures);
 	datGui.add(config, 'geometry', geometries);
 	

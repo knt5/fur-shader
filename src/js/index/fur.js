@@ -230,7 +230,18 @@ function calc() {
 	
 	let i;
 	for (i=0; i<meshes.length; i++) {
-		meshes[i].material.uniforms.globalTime.value = shaderTime;
+		// Time
+		meshes[i].material.uniforms.time.value = shaderTime;
+		
+		// Fur strength
+		if (meshes[i].material.uniforms.furStrength.value !== datGui.config.furStrength) {
+			meshes[i].material.uniforms.furStrength.value = datGui.config.furStrength;
+		}
+		
+		// Fur length (shell spacing)
+		if (meshes[i].material.uniforms.spacing.value !== datGui.config.furLength) {
+			meshes[i].material.uniforms.spacing.value = datGui.config.furLength;
+		}
 	}
 }
 
@@ -259,12 +270,14 @@ function generateShells(geometry, furTexture, furMaskTexture) {
 	for (i=0; i<numberOfShells; i++) {
 		// Create uniforms
 		uniforms = {
-			color:      { type: 'c',  value: new THREE.Color( 0xffffff ) },
-			hairMap:    { type: 't',  value: furMaskTexture },
-			colorMap:   { type: 't',  value: furTexture },
-			offset:	    { type: 'f',  value: i / numberOfShells },
-			globalTime: { type: 'f',  value: shaderTime },
-			gravity:    { type: 'v3', value: gravity },
+			color:       { type: 'c',  value: new THREE.Color( 0xffffff ) },
+			hairMap:     { type: 't',  value: furMaskTexture },
+			colorMap:    { type: 't',  value: furTexture },
+			offset:	     { type: 'f',  value: i / numberOfShells },
+			furStrength: { type: 'f',  value: datGui.config.furStrength },
+			spacing  :   { type: 'f',  value: datGui.config.furLength },
+			time:        { type: 'f',  value: shaderTime },
+			gravity:     { type: 'v3', value: gravity },
 		};
 		
 		// Create material
