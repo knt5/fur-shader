@@ -32,7 +32,6 @@ let geometry;
 
 // Font data
 let font;
-loadFont('optimer_bold');
 
 //=========================================================
 let delta;
@@ -96,6 +95,8 @@ function init(three) {
 
 //=========================================================
 function generateModel() {
+	let shellsWillBeGeneratedByHandler = false;
+	
 	switch (datGui.config.geometry) {
 		case 'Sphere':
 			geometry = new THREE.SphereBufferGeometry(geometrySize / 2, 24, 24);
@@ -128,13 +129,15 @@ function generateModel() {
 			geometry = new THREE.CylinderBufferGeometry(geometrySize / 4, geometrySize / 4, geometrySize / 2, 16);
 			break;
 		case 'Text':
-			if (font) {
+			loadFont('optimer_bold', () => {
 				geometry = new THREE.TextGeometry('FUR', {
 					font: font,
 					size: geometrySize / 4,
 					height: geometrySize / 8
 				});
-			}
+				generateShells(geometry, furTexture, furMaskTexture);
+			});
+			shellsWillBeGeneratedByHandler = true;
 			break;
 		/*
 		case 'Lathe':
@@ -152,7 +155,9 @@ function generateModel() {
 			break;
 	}
 	
-	generateShells(geometry, furTexture, furMaskTexture);
+	if (! shellsWillBeGeneratedByHandler) {
+		generateShells(geometry, furTexture, furMaskTexture);
+	}
 }
 
 //=========================================================
@@ -313,8 +318,13 @@ function getTexturePath() {
 }
 
 //=========================================================
-function loadFont(fontName) {
-	$.getJSON(`/assets/font/${fontName}.typeface.json`, (data) => {
-		font = new THREE.Font(data);
-	});
+function loadFont(fontName, callback) {
+	if (font) {
+		callback();
+	} else {
+		$.getJSON(`/assets/font/${fontName}.typeface.json`, (data) => {
+			font = new THREE.Font(data);
+			callback();
+		});
+	}
 }
