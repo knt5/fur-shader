@@ -1,5 +1,5 @@
-uniform sampler2D hairMap;
-uniform sampler2D colorMap;
+uniform sampler2D furMaskMap;
+uniform sampler2D textureMap;
 uniform vec3 color;
 uniform float offset;
 
@@ -7,21 +7,21 @@ varying vec2 vUv;
 varying vec3 vNormal;
 
 void main() {
-	vec4 hairColor = texture2D(hairMap, vec2(vUv.s, vUv.t));
-	vec4 col = texture2D(colorMap, vec2(vUv.s * 0.2, vUv.t * 0.2));
+	vec4 furMask = texture2D(furMaskMap, vec2(vUv.s, vUv.t));
+	vec4 texture = texture2D(textureMap, vec2(vUv.s * 0.1, vUv.t * 0.05));
 	
-	// discard no hairs + above the max length
-	if (hairColor.a <= 0.0 || hairColor.g < offset) {
+	// Discard by fur mask
+	if (furMask.a <= 0.0 || furMask.g < offset) {
 		discard;
 	}
 	
-	// darker towards bottom of the hair
-	float shadow = mix(0.0, hairColor.b * 1.2, offset);
+	// Darker towards bottom
+	float shadow = mix(0.0, furMask.b * 1.2, offset);
 	
-	// light
-	//vec3 light = vec3(0.1,1.0,0.3);
-	vec3 light = vec3(0.7, 0.7, 0.7);
-	float d = pow(max(0.25, dot(vNormal.xyz, light)) * 2.75, 1.4);
+	// Light
+	vec3 light = vec3(0.8, 0.8, 0.8);
+	float bright = max(0.25, dot(vNormal.xyz, light)) * 4.0;
 	
-	gl_FragColor = vec4(color * col.xyz * d * shadow, 1.1 - offset);
+	// Calculate color
+	gl_FragColor = vec4(color * texture.xyz * bright * shadow, 1.1 - offset);
 }

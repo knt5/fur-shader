@@ -271,11 +271,11 @@ function generateShells(geometry, furTexture, furMaskTexture) {
 		// Create uniforms
 		uniforms = {
 			color:       { type: 'c',  value: new THREE.Color( 0xffffff ) },
-			hairMap:     { type: 't',  value: furMaskTexture },
-			colorMap:    { type: 't',  value: furTexture },
+			furMaskMap:  { type: 't',  value: furMaskTexture },
+			textureMap:  { type: 't',  value: furTexture },
 			offset:	     { type: 'f',  value: i / numberOfShells },
 			furStrength: { type: 'f',  value: datGui.config.furStrength },
-			spacing  :   { type: 'f',  value: datGui.config.furLength },
+			spacing:     { type: 'f',  value: datGui.config.furLength },
 			time:        { type: 'f',  value: shaderTime },
 			gravity:     { type: 'v3', value: gravity },
 		};
