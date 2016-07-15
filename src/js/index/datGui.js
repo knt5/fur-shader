@@ -10,6 +10,7 @@ const config = {
 	furStrength: 3,
 	furLength: 12,
 	texture: 'giraffe',
+	textureDivde: 0.1,
 	geometry: 'Sphere',
 };
 
@@ -62,6 +63,7 @@ function init() {
 	datGui.add(config, 'furStrength', 0, 20);
 	datGui.add(config, 'furLength', 4, 32);
 	datGui.add(config, 'texture', textures);
+	datGui.add(config, 'textureDivde', 0.05, 0.5);
 	datGui.add(config, 'geometry', geometries);
 	
 	$datGui.append(datGui.domElement);

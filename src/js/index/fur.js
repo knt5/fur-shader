@@ -1,4 +1,4 @@
-import { $stage, $vertexShader, $fragmentShader } from './dom';
+import { $stage, $vertexShader, $fragmentShader, $geometry, $datGui } from './dom';
 import loadTexture from './loadTexture';
 import datGui from './datGui';
 
@@ -67,6 +67,9 @@ function init(three) {
 		furMaskTexture.wrapS = furMaskTexture.wrapT = THREE.RepeatWrapping;
 		//furMaskTexture.repeat.set(textureRepeat, textureRepeat);
 		furMaskTexture.anisotropy = renderer.getMaxAnisotropy();
+		
+		// Set positon of DOM
+		$geometry.css('bottom', ($datGui.height() + 46) + 'px');
 		
 	} else {
 		if (meshes.length > 0) {
@@ -242,6 +245,11 @@ function calc() {
 		if (meshes[i].material.uniforms.spacing.value !== datGui.config.furLength) {
 			meshes[i].material.uniforms.spacing.value = datGui.config.furLength;
 		}
+		
+		// Texture divide parameter
+		if (meshes[i].material.uniforms.textureDivde.value !== datGui.config.textureDivde) {
+			meshes[i].material.uniforms.textureDivde.value = datGui.config.textureDivde;
+		}
 	}
 }
 
@@ -270,14 +278,15 @@ function generateShells(geometry, furTexture, furMaskTexture) {
 	for (i=0; i<numberOfShells; i++) {
 		// Create uniforms
 		uniforms = {
-			color:       { type: 'c',  value: new THREE.Color( 0xffffff ) },
-			furMaskMap:  { type: 't',  value: furMaskTexture },
-			textureMap:  { type: 't',  value: furTexture },
-			offset:	     { type: 'f',  value: i / numberOfShells },
-			furStrength: { type: 'f',  value: datGui.config.furStrength },
-			spacing:     { type: 'f',  value: datGui.config.furLength },
-			time:        { type: 'f',  value: shaderTime },
-			gravity:     { type: 'v3', value: gravity },
+			color:        { type: 'c',  value: new THREE.Color( 0xffffff ) },
+			furMaskMap:   { type: 't',  value: furMaskTexture },
+			textureMap:   { type: 't',  value: furTexture },
+			offset:	      { type: 'f',  value: i / numberOfShells },
+			furStrength:  { type: 'f',  value: datGui.config.furStrength },
+			spacing:      { type: 'f',  value: datGui.config.furLength },
+			time:         { type: 'f',  value: shaderTime },
+			gravity:      { type: 'v3', value: gravity },
+			textureDivde: { type: 'f',  value: datGui.config.textureDivde },
 		};
 		
 		// Create material
