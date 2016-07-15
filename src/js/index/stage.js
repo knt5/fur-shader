@@ -6,7 +6,7 @@ let light, ambientLight;
 let trackball;
 
 // Camera
-let cameraRadius = 150;
+let cameraRadius = 192;
 let cameraHeight = 40;
 let cameraDirection = Math.PI / 2;
 
