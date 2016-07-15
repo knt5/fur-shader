@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>The fur</title>
+	<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+	<div id="stage"></div>
+	
+	<div class="header">
+		<div class="title">THE FUR</div>
+		<div class="texture">
+			Texture: <input id="textureInput" class="textureInput" type="file">
+		</div>
+	</div>
+	
+	<div id="datGui" class="datGui"></div>
+	
+	<script src="/assets/js/lib/jquery.min.js?v=3.0.0"></script>
+	<script src="/assets/js/lib/three.min.js?v=r78"></script>
+	<script src="/assets/js/lib/dat.gui.min.js?v=0.5.1"></script>
+	<script src="/assets/js/lib/TrackballControls.min.js?commit=3aa961"></script>
+	
+	<script type="x-shader/x-vertex" id="vertexShader">{{> ./vertexShader }}</script>
+	<script type="x-shader/x-fragment" id="fragmentShader">{{> ./fragmentShader }}</script>
+	
+	<script src="/assets/js/index.js" charset="UTF-8"></script>
+</body>
+</html>
