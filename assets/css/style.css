@@ -57,7 +57,15 @@ body {
 
 .texture {
 	margin-top: 2px;
-	padding-left: 16px;
+	padding-left: 14px;
+}
+
+.geometry {
+	position: absolute;
+	left: 0;
+	bottom: 0;  /* js change this */
+	margin-top: 18px;
+	padding-left: 14px;
 }
 
 .datGui {
@@ -65,4 +73,11 @@ body {
 	left: 0;
 	bottom: 27px;
 	opacity: .9;
+}
+
+/* =================== style:media =================== */
+@media (max-width: 768px) {
+	.geometry {
+		display: none;
+	}
 }
