@@ -13,11 +13,18 @@ const config = {
 
 const textures = [
 	'giraffe',
+	'tiger',
+	'cow',
+	'zebra',
+	'black-panther',
+	'bear',
 	'dot',
 	'white',
-	'cow',
+	'knit',
+	'blue-tile',
+	'green-tile',
 	'fuji',
-	'wave'
+	'wave',
 ];
 
 const geometries = [
