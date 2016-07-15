@@ -4,9 +4,9 @@ const imagemin = require('gulp-imagemin');
 // Minify images
 gulp.task('minify:image', () => {
 	return gulp.src([
-		'public/**/*.png',
-		'public/**/*.jpg'
+		'assets/**/*.png',
+		'assets/**/*.jpg'
 	])
 	.pipe(imagemin())
-	.pipe(gulp.dest('public/'));
+	.pipe(gulp.dest('assets/'));
 });

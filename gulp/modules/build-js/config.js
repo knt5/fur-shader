@@ -7,6 +7,6 @@ module.exports = {
 		dest: 'gulp/works/js/browserified/'
 	},
 	minify: {
-		dest: 'public/js/'
+		dest: 'assets/js/'
 	}
 };
