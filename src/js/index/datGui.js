@@ -10,22 +10,23 @@ const config = {
 	furStrength: 3,
 	furLength: 12,
 	texture: 'giraffe',
-	textureDivde: 0.1,
+	textureDivde: 0.05,
 	geometry: 'Sphere',
 };
 
 const textures = [
 	'giraffe',
-	'tiger',
+	'earth',
 	'cow',
 	'zebra',
 	'black-panther',
 	'bear',
-	'dot',
+	'tiger',
 	'white',
 	'knit',
 	'blue-tile',
 	'green-tile',
+	//'dot',
 	'fuji',
 	'wave',
 ];
