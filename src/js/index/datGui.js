@@ -27,7 +27,6 @@ const textures = [
 	'tiger',
 	'white',
 	'knit',
-	//'dot',
 	'fuji',
 	'wave',
 ];
