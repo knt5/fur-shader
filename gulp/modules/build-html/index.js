@@ -35,7 +35,7 @@ module.exports = (done) => {
 					removeComments: true
 				}))
 				.pipe(replace(/\t/g, ''))
-				.pipe(replace(/(\/\/).*\n/g, ''))
+				.pipe(replace(/[^:](\/\/).*\n/g, ''))
 				.pipe(replace(/\n/g, ''))
 				.pipe(gulp.dest(config.minify.dest))
 				.on('end', () => {

@@ -81,3 +81,10 @@ body {
 		display: none;
 	}
 }
+
+@media (max-width: 480px) {
+	.github-ribbon {
+		width: 80px;
+		height: 80px;
+	}
+}
