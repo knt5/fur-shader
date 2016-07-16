@@ -3,14 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<title>The fur</title>
+	<title>THE FUR - Make everything fluffy</title>
 	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+	<link rel="apple-touch-icon" type="image/png" href="assets/img/favicon.png">
+	
+	{{> ./parts/twitterMeta }}
+	
+	{{> ./parts/facebookMeta }}
+	
 </head>
 <body>
 	<div id="stage"></div>
 	
 	<div class="header">
+		<div class="clearfix">
 		<div class="title">THE FUR</div>
+		<div class="facebook">
+			<iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fknt5.github.io%2Fdemo%2Ffur%2F&width=130&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId=1746302135643374" width="130" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+		</div>
+		</div>
 		<div class="texture">
 			Texture: <input id="textureInput" type="file" accept="image/*">
 		</div>
