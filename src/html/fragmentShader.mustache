@@ -9,7 +9,7 @@ varying vec3 vNormal;
 
 void main() {
 	vec4 furMask = texture2D(furMaskMap, vec2(vUv.s, vUv.t));
-	vec4 texture = texture2D(textureMap, vec2(vUv.s * textureDivde, vUv.t * textureDivde / 2.0));
+	vec4 texture = texture2D(textureMap, vec2(vUv.s * textureDivde, vUv.t * textureDivde));
 	
 	// Discard by fur mask
 	if (furMask.a <= 0.0 || furMask.g < offset) {
