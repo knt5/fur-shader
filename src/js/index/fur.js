@@ -1,4 +1,4 @@
-import { $stage, $vertexShader, $fragmentShader, $geometry, $datGui } from './dom';
+import { $stage, $vertexShader, $fragmentShader } from './dom';
 import loadTexture from './loadTexture';
 import datGui from './datGui';
 
@@ -28,7 +28,6 @@ const furTextureContext = furTextureCanvas.getContext( '2d' );
 // 3D
 let camera, scene, renderer;
 let geometry;
-const models = {};
 
 // Font data
 let font;
@@ -68,7 +67,7 @@ function init(three) {
 		furMaskTexture.anisotropy = renderer.getMaxAnisotropy();
 		
 		// Set positon of DOM
-		$geometry.css('bottom', ($datGui.height() + 46) + 'px');
+		//$geometry.css('bottom', ($datGui.height() + 46) + 'px');
 		
 	} else {
 		if (meshes.length > 0) {

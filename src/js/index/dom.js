@@ -4,4 +4,3 @@ export const $vertexShader = $('#vertexShader');
 export const $fragmentShader = $('#fragmentShader');
 export const $datGui = $('#datGui');
 export const $textureInput = $('#textureInput');
-export const $geometry = $('#geometry');
