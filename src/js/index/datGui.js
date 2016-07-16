@@ -34,6 +34,7 @@ const geometries = [
 	'Sphere',
 	'Torus',
 	'TorusKnot',
+	'Teapot',
 	'Tetrahedron',
 	'Octahedron',
 	'Icosahedron',

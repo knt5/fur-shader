@@ -17,7 +17,8 @@
 	</div>
 	
 	<div id="geometry" class="geometry">
-		Model: <input id="geometryInput" type="file">
+		Model: <input id="geometryInput" type="file" accept=".obj,.fbx">
+		<div>* .obj, .fbx</div>
 	</div>
 	
 	<div id="datGui" class="datGui"></div>
@@ -26,6 +27,10 @@
 	<script src="/assets/js/lib/three.min.js?v=r78"></script>
 	<script src="/assets/js/lib/dat.gui.min.js?v=0.5.1"></script>
 	<script src="/assets/js/lib/TrackballControls.min.js?commit=3aa961"></script>
+	
+	<script src="/assets/js/lib/OBJLoader.js?commit=3adf47"></script>
+	
+	<script src="/assets/js/lib/TeapotBufferGeometry.js?commit=01bc9f"></script>
 	
 	<script type="x-shader/x-vertex" id="vertexShader">{{> ./vertexShader }}</script>
 	<script type="x-shader/x-fragment" id="fragmentShader">{{> ./fragmentShader }}</script>

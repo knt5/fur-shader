@@ -15,7 +15,6 @@ export default {
 //=========================================================
 let prevTextureName = datGui.config.texture;
 let prevGeometryName = datGui.config.geometry;
-//const textureRepeat = 5;
 const textureSize = 256;
 const numberOfShells = 60;
 const geometrySize = 40;
@@ -29,6 +28,7 @@ const furTextureContext = furTextureCanvas.getContext( '2d' );
 // 3D
 let camera, scene, renderer;
 let geometry;
+const models = {};
 
 // Font data
 let font;
@@ -65,7 +65,6 @@ function init(three) {
 		furMaskTexture = new THREE.Texture(generateFurMaskTextureCanvas());
 		furMaskTexture.needsUpdate = true;
 		furMaskTexture.wrapS = furMaskTexture.wrapT = THREE.RepeatWrapping;
-		//furMaskTexture.repeat.set(textureRepeat, textureRepeat);
 		furMaskTexture.anisotropy = renderer.getMaxAnisotropy();
 		
 		// Set positon of DOM
@@ -109,6 +108,9 @@ function generateModel() {
 			break;
 		case 'TorusKnot':
 			geometry = new THREE.TorusKnotBufferGeometry(geometrySize / 3, 1);
+			break;
+		case 'Teapot':
+			geometry = new THREE.TeapotBufferGeometry(geometrySize / 2);
 			break;
 		case 'Tetrahedron':
 			geometry = new THREE.TetrahedronGeometry(geometrySize / 2);
@@ -350,3 +352,46 @@ function loadFont(fontName, callback) {
 		});
 	}
 }
+
+/*
+//=========================================================
+function loadModel(modelFileName, type, callback) {
+	if (models[modelFileName]) {
+		callback(models[modelFileName].mergedGeometry);
+	} else {
+		switch (type) {
+			case 'obj':
+				(new THREE.OBJLoader()).load(`/assets/model/${modelFileName}`, (object) => {
+					let mergedGeometry;
+					
+					for (const child of object.children) {
+						if (child instanceof THREE.Mesh && !(child instanceof THREE.BufferGeometry)) {
+							if (mergedGeometry === undefined) {
+								mergedGeometry = child.geometry;
+							} else {
+								mergedGeometry.merge(child.geometry);
+							}
+						}
+					}
+					
+					// Resize geometry
+					mergedGeometry.computeBoundingBox();
+					const width = mergedGeometry.boundingBox.max.x - mergedGeometry.boundingBox.min.x;
+					const height = mergedGeometry.boundingBox.max.y - mergedGeometry.boundingBox.min.y;
+					const depth = mergedGeometry.boundingBox.max.z - mergedGeometry.boundingBox.min.z;
+					const scale = geometrySize / Math.max(width, height, depth) * 1.5;
+					mergedGeometry.scale(scale, scale, scale);
+					
+					models[modelFileName] = {
+						type,
+						object,
+						mergedGeometry
+					};
+					
+					callback(mergedGeometry);
+				});
+				break;
+		}
+	}
+}
+*/
