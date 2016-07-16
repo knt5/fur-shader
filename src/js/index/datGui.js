@@ -5,13 +5,13 @@ const datGui = new dat.GUI({
 });
 
 const config = {
-	wind: 1,
-	gravity: 0.9,
+	texture: 'pokemon',
+	geometry: 'Sphere',
+	textureDivde: 0.05,
 	furStrength: 3,
 	furLength: 12,
-	texture: 'pokemon',
-	textureDivde: 0.05,
-	geometry: 'Sphere',
+	gravity: 0.9,
+	wind: 1,
 };
 
 const textures = [
@@ -60,13 +60,13 @@ export default {
 
 //=========================================================
 function init() {
-	datGui.add(config, 'wind', 0, 5);
-	datGui.add(config, 'gravity', 0, 3);
+	datGui.add(config, 'texture', textures);
+	datGui.add(config, 'geometry', geometries);
+	datGui.add(config, 'textureDivde', 0.05, 0.5);
 	datGui.add(config, 'furStrength', 0, 20);
 	datGui.add(config, 'furLength', 4, 32);
-	datGui.add(config, 'texture', textures);
-	datGui.add(config, 'textureDivde', 0.05, 0.5);
-	datGui.add(config, 'geometry', geometries);
+	datGui.add(config, 'gravity', 0, 3);
+	datGui.add(config, 'wind', 0, 5);
 	
 	$datGui.append(datGui.domElement);
 }
