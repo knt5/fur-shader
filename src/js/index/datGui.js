@@ -9,14 +9,17 @@ const config = {
 	gravity: 0.9,
 	furStrength: 3,
 	furLength: 12,
-	texture: 'giraffe',
+	texture: 'pokemon',
 	textureDivde: 0.05,
 	geometry: 'Sphere',
 };
 
 const textures = [
 	'giraffe',
+	'pokemon',
 	'earth',
+	'blue-tile',
+	'green-tile',
 	'cow',
 	'zebra',
 	'black-panther',
@@ -24,8 +27,6 @@ const textures = [
 	'tiger',
 	'white',
 	'knit',
-	'blue-tile',
-	'green-tile',
 	//'dot',
 	'fuji',
 	'wave',
