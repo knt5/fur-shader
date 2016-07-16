@@ -134,11 +134,12 @@ function generateModel() {
 			break;
 		case 'Text':
 			loadFont('optimer_bold', () => {
-				geometry = new THREE.TextGeometry('FUR', {
+				geometry = new THREE.TextGeometry(datGui.config.texture.toUpperCase(), {
 					font: font,
-					size: geometrySize / 4,
-					height: geometrySize / 8
+					size: geometrySize / 8,
+					height: geometrySize / 12
 				});
+				geometry.center();
 				generateShells(geometry, furTexture, furMaskTexture);
 			});
 			shellsWillBeGeneratedByHandler = true;
