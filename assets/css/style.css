@@ -44,22 +44,40 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: 12px 0 0 12px;
+	padding: 8px 0 0 8px;
+}
+
+.title-box {
+	padding-right: 80px;
 }
 
 .title {
-	font-size: 60px;
+	font-size: 32px;
+	line-height: 1;
 }
 
 .facebook {
-	margin-top: 2px;
-	padding-left: 4px;
+	margin-top: 13px;
+	opacity: .9;
 }
 
 .texture {
-	margin-top: 2px;
-	padding-left: 12px;
+	margin: 6px 0 0 2px;
 	font-size: 18px;
+	opacity: .9;
+}
+
+.textureInput {
+	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.2) 100%);
+	border: 1px solid #fff;
+	border-radius: 5px;
+	padding: 6px;
+	cursor: pointer;
+}
+
+.textureInput:hover {
+	background: #fff;
+	color: #2e2e2e;
 }
 
 .geometry {

@@ -8,7 +8,7 @@ const datGui = new dat.GUI({
 
 let initFurLength = 12;
 if ($window.width() <= mobileWidthBorder) {
-	initFurLength = 20;
+	initFurLength = 24;
 }
 
 const config = {
@@ -26,6 +26,7 @@ const textures = [
 	'pokemon',
 	'earth',
 	'tiger',
+	'fuji',
 	'zebra',
 	'black-panther',
 	'cow',
@@ -34,7 +35,6 @@ const textures = [
 	'blue-tile',
 	'green-tile',
 	'knit',
-	'fuji',
 	'wave',
 ];
 
@@ -70,11 +70,11 @@ function init() {
 	datGui.add(config, 'texture', textures);
 	datGui.add(config, 'geometry', geometries);
 	if ($window.width() > mobileWidthBorder) {
-		datGui.add(config, 'textureDivde', 0.05, 0.5);
-		datGui.add(config, 'furStrength', 0, 20);
 		datGui.add(config, 'furLength', 4, 32);
+		datGui.add(config, 'furStrength', 0, 20);
 		datGui.add(config, 'gravity', 0, 3);
 		datGui.add(config, 'wind', 0, 5);
+		datGui.add(config, 'textureDivde', 0.05, 0.5);
 	}
 	
 	$datGui.append(datGui.domElement);
