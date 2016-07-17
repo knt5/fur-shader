@@ -24,7 +24,6 @@ const geometrySize = 40;
 const furTextureCanvas = document.createElement('canvas');
 furTextureCanvas.width = textureWidth;
 furTextureCanvas.height = textureHeight;
-const furTextureContext = furTextureCanvas.getContext( '2d' );
 
 // 3D
 let camera, scene, renderer;
@@ -175,16 +174,20 @@ function changeFurTexture(path) {
 
 //=========================================================
 function changeFurTextureFromImage(image) {
-	furTextureContext.drawImage(image,
-		0, 0, image.width, image.height,
-		0, 0, textureWidth, textureHeight
-	);
-	
-	furTexture = new THREE.Texture(furTextureCanvas);
-	furTexture.needsUpdate = true;
-	
-	furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
-	init();
+	// Draw image to canvas
+	// * MegaPixImage is required to draw large image to iOS canvas.
+	const megaPixImage = new MegaPixImage(image);
+	megaPixImage.render(furTextureCanvas, {
+		width: textureWidth,
+		height: textureHeight
+	}, () => {
+		// Generate texture
+		furTexture = new THREE.Texture(furTextureCanvas);
+		furTexture.wrapS = furTexture.wrapT = THREE.RepeatWrapping;
+		furTexture.needsUpdate = true;
+		
+		init();
+	});
 }
 
 //=========================================================
