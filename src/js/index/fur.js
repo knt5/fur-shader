@@ -15,14 +15,15 @@ export default {
 //=========================================================
 let prevTextureName = datGui.config.texture;
 let prevGeometryName = datGui.config.geometry;
-const textureSize = 256;
+const textureWidth = 256;
+const textureHeight = 128;
 const numberOfShells = 60;
 const geometrySize = 40;
 
 // furTextureCanvas
 const furTextureCanvas = document.createElement('canvas');
-furTextureCanvas.width = textureSize;
-furTextureCanvas.height = textureSize;
+furTextureCanvas.width = textureWidth;
+furTextureCanvas.height = textureHeight;
 const furTextureContext = furTextureCanvas.getContext( '2d' );
 
 // 3D
@@ -176,7 +177,7 @@ function changeFurTexture(path) {
 function changeFurTextureFromImage(image) {
 	furTextureContext.drawImage(image,
 		0, 0, image.width, image.height,
-		0, 0, textureSize, textureSize
+		0, 0, textureWidth, textureHeight
 	);
 	
 	furTexture = new THREE.Texture(furTextureCanvas);
@@ -313,8 +314,8 @@ function generateShells(geometry, furTexture, furMaskTexture) {
 //=========================================================
 function generateFurMaskTextureCanvas() {
 	const canvas = document.createElement('canvas');
-	canvas.width = textureSize;
-	canvas.height = textureSize;
+	canvas.width = textureWidth;
+	canvas.height = textureHeight;
 	const context = canvas.getContext( '2d' );
 	
 	let i;
