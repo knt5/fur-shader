@@ -265,8 +265,8 @@ function registerEvents() {
 	
 	$stage.on('touchmove', (event) => {
 		event.originalEvent.preventDefault();
-		mouse.x = (event.originalEvent.touches[0].clientX / $stage.width()) * 2 - 1;
-		mouse.y = - (event.originalEvent.touches[0].clientY / $stage.height()) * 2 + 1;
+		mouse.x = (event.originalEvent.targetTouches[0].clientX / $stage.width()) * 10 - 1;
+		mouse.y = - (event.originalEvent.targetTouches[0].clientY / $stage.height()) * 10 + 1;
 	});
 }
 
