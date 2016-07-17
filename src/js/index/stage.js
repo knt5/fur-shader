@@ -36,7 +36,7 @@ function createStage() {
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(getWidth(), getHeight());
 	renderer.setPixelRatio(renderer.getPixelRatio());
-	renderer.setClearColor(0x333333);
+	renderer.setClearColor(0x222222);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	$stage.append(renderer.domElement);
