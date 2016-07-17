@@ -1,5 +1,6 @@
-import { $window, $stage, $textureInput } from './dom';
+import { $window, $stage, $textureInput, $datGui } from './dom';
 import fur from './fur';
+import sns from './sns';
 
 let camera, scene, renderer;
 let light, ambientLight;
@@ -15,19 +16,26 @@ animate();
 
 //=========================================================
 function init() {
+	// Setup 3D stage
 	createStage();  // Create renderer, scene, camera and controls
 	addLights();
-	
 	//scene.add(new THREE.GridHelper(300, 10));
 	
+	// Initialize fur object
 	fur.init({
 		scene,
 		renderer,
 		camera
 	});
 	
+	// Register event handlers
 	registerEvents();
 	fur.registerEvents();
+	
+	// Set dat.GUI panel position
+	if (sns.isFacebookApp()) {
+		$datGui.css('bottom', ($window.height() - sns.getFacebookAppHeight()) + 'px');
+	}
 }
 
 //=========================================================
