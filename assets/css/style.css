@@ -28,10 +28,15 @@ h1 {
 	text-align: center;
 }
 
+/* =================== utility =================== */
 .clearfix::after {
 	content: '';
 	display: block;
 	clear: both;
+}
+
+.red {
+	color: #f00;
 }
 
 /* =================== style =================== */
@@ -52,7 +57,15 @@ body {
 }
 
 .title {
-	font-size: 32px;
+	float: left;
+	font-size: 33px;
+	line-height: 1;
+	margin-right: 8px;
+}
+
+.sub-title {
+	float: left;
+	font-size: 11px;
 	line-height: 1;
 }
 
@@ -67,7 +80,7 @@ body {
 	opacity: .9;
 }
 
-.textureInput {
+.texture-input {
 	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.2) 100%);
 	border: 1px solid #fff;
 	border-radius: 5px;
@@ -75,7 +88,7 @@ body {
 	cursor: pointer;
 }
 
-.textureInput:hover {
+.texture-input:hover {
 	background: #fff;
 	color: #2e2e2e;
 }
@@ -88,7 +101,7 @@ body {
 	padding-left: 12px;
 }
 
-.datGui {
+.dat-gui {
 	position: absolute;
 	left: 0;
 	bottom: 27px;
