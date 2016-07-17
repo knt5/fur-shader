@@ -342,7 +342,7 @@ function generateFurMaskTextureCanvas() {
 
 //=========================================================
 function getTexturePath() {
-	return `/assets/img/fur/${datGui.config.texture}.png`;
+	return `assets/img/fur/${datGui.config.texture}.png`;
 }
 
 //=========================================================
@@ -350,7 +350,7 @@ function loadFont(fontName, callback) {
 	if (font) {
 		callback();
 	} else {
-		$.getJSON(`/assets/font/${fontName}.typeface.json`, (data) => {
+		$.getJSON(`assets/font/${fontName}.typeface.json`, (data) => {
 			font = new THREE.Font(data);
 			callback();
 		});
