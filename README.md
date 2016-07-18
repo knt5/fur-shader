@@ -2,6 +2,11 @@
 
 Fur shader implementation practice
 
+Demo: https://knt5.github.io/demo/fur/
+
+![screen shot](https://knt5.github.io/assets/img/twitter/summary-large-image/fur.jpg)
+
+
 ## Installation for devlopment
 
 ```
