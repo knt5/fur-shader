@@ -1,28 +1,15 @@
-# Fur shader
+# THE FUR
 
 Fur shader implementation practice
 
-## Installation
-
-Install packages:
-
-```
-npm i
-```
-
-Run server:
-
-```
-node app.js
-```
-
-Access to http://localhost:8000/
-
-## Development
+## Installation for devlopment
 
 ```
 # Install gulp to global
 npm i -g gulp
+
+# Install packages
+npm i
 
 # Build
 gulp build
