@@ -1,11 +1,12 @@
 # THE FUR
 
-Fur shader implementation practice
+THE FUR makes everything fluffy (mofumofu).
 
 Demo: https://knt5.github.io/demo/fur/
 
 ![screen shot](https://knt5.github.io/assets/img/twitter/summary-large-image/fur.jpg)
 
+\* This is fur shader implementation practice.
 
 ## Installation for devlopment
 
