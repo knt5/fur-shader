@@ -12,7 +12,7 @@ if ($window.width() <= mobileWidthBorder) {
 }
 
 const config = {
-	texture: 'pokemon',
+	texture: 'earth',
 	geometry: 'Sphere',
 	textureDivde: 0.05,
 	furStrength: 3,
@@ -22,9 +22,9 @@ const config = {
 };
 
 const textures = [
-	'giraffe',
-	'pokemon',
 	'earth',
+	'pokemon',
+	'giraffe',
 	'tiger',
 	'fuji',
 	'zebra',
